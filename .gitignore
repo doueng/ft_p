@@ -1,0 +1,6 @@
+*.o
+compile_commands.json
+server
+client
+data/
+libft/libft.a
