@@ -1,12 +1,37 @@
 #include "server.h"
 
-char	*process_cmd(char *cmd)
+char	*cmd_put(int cfd)
+{
+	char	*file_name;
+	off_t	file_size;
+	int		filefd;
+	char	buff;
+
+	file_name = NULL;
+	X(get_next_line(cfd, &file_name));
+	X(read(cfd, &file_size, sizeof(off_t)));
+	ft_printf("filesize: (%d)\n", file_size);
+	file_name += 3;
+	while (*file_name == ' ')
+		file_name++;
+	X((filefd = open(file_name, O_WRONLY | O_CREAT | O_APPEND)));
+	while (file_size--)
+	{
+		X(read(cfd, &buff, 1));
+		X(write(filefd, &buff, 1));
+	}
+	return (Xv(ft_strdup("File created!!!")));
+}
+
+char	*process_cmd(char *cmd, int cfd)
 {
 	char *res;
 
 	res = "Invalid command";
 	if (ft_strequ(cmd, "ls"))
 		res = cmd_ls();
+	else if (ft_strequ(cmd, "put"))
+		res = cmd_put(cfd);
 	else if (ft_strequ(cmd, "pwd"))
 		res = cmd_pwd();
 	else
@@ -24,7 +49,7 @@ int read_cmd(int cfd)
 	{
 		cmd = NULL;
 		X(get_next_line(cfd, &cmd));
-		cmd_ret = process_cmd(cmd);
+		cmd_ret = process_cmd(cmd, cfd);
 		len = ft_strlen(cmd_ret);
 		send(cfd, &len, 4, 0);
 		write(cfd, cmd_ret, len);

@@ -23,12 +23,49 @@ void	print_answer(int sockfd)
 	free(answer);
 }
 
+void	send_cmd(int sockfd, char *cmd)
+{
+	uint32_t len;
+
+	len = ft_strlen(cmd);
+	cmd[len] = '\n';
+	write(sockfd, cmd, len + 1);
+}
+
+void	send_file(int sockfd, char *cmd)
+{
+	struct stat st;
+	int			fd;
+	void		*file;
+	int			len;
+
+	write(sockfd, "put\n", 4);
+	X((fd = open(cmd + 4, O_RDONLY)));
+	X(fstat(fd, &st));
+	Xv((file = mmap(NULL, st.st_size, PROT_READ, MAP_SHARED, fd, 0)));
+	len = ft_strlen(cmd);
+	cmd[len] = '\n';
+	X(write(sockfd, cmd, len + 1));
+	X(write(sockfd, &st.st_size, sizeof(off_t)));
+	X(write(sockfd, (char*)file, st.st_size));
+	X(munmap(file, st.st_size));
+	close(fd);
+}
+
+void	sender(int sockfd, char *cmd)
+{
+	if (0 == ft_strncmp(cmd, "put", 3))
+		send_file(sockfd, cmd);
+	else
+		send_cmd(sockfd, cmd);
+}
+
 void	prompt(void)
 {
 	ft_printf("Server :::  ");
 }
 
-void	send_cmd(int sockfd)
+void	main_loop(int sockfd)
 {
 	char	*cmd;
 	int		ret;
@@ -38,8 +75,7 @@ void	send_cmd(int sockfd)
 	while ((ret = get_next_line(0, &cmd)))
 	{
 		X(ret);
-		cmd[ft_strlen(cmd)] = '\n';
-		write(sockfd, cmd, ft_strlen(cmd));
+		sender(sockfd, cmd);
 		print_answer(sockfd);
 		free(cmd);
 		cmd = NULL;
@@ -55,6 +91,6 @@ int main(int argc, char *argv[])
 		return (ft_printf("wrong number args\n"));
 	sockfd = get_socket();
 	connect_to_srv(sockfd, argv[1]);
-	send_cmd(sockfd);
+	main_loop(sockfd);
 	return (0);
 }

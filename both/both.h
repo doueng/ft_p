@@ -3,6 +3,8 @@
 # include "../libft/libft.h"
 # include <sys/socket.h>
 # include <netdb.h>
+# include <fcntl.h>
+
 
 # define Xv(res)	(x_void(res,__FILE__,__LINE__))
 # define X(res)		(x_int(res,__FILE__,__LINE__))
