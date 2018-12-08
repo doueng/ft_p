@@ -10,4 +10,11 @@
 
 # define PORT 1800
 # define MAXLINE 4096
+
+void	print_answer(int sockfd);
+void	connect_to_srv(int sockfd, char *address);
+int		send_cmd(int sockfd, char *cmd);
+int		send_file(int sockfd, char *cmd);
+void	main_loop(int sockfd);
+
 #endif

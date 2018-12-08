@@ -20,7 +20,7 @@ char	*cmd_put(int cfd)
 		X(read(cfd, &buff, 1));
 		X(write(filefd, &buff, 1));
 	}
-	return (Xv(ft_strdup("File created!!!")));
+	return (Xv(ft_strdup("File uploaded!!!!")));
 }
 
 char	*process_cmd(char *cmd, int cfd)
