@@ -9,8 +9,8 @@
 # define PORT 1800
 # define MAXLINE 4096
 
+void	print_response(int sockfd);
 int		get_file(int sockfd, char *line);
-void	print_answer(int sockfd);
 void	connect_to_srv(int sockfd, char *address, int port);
 int		send_file(int sockfd, char *line);
 void	main_loop(int sockfd);

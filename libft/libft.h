@@ -22,6 +22,7 @@
 # define MAX_INT 2147483647
 # define MIN_INT -2147483648
 
+# define BOLD_TEXT "\e[1m"
 # define NORMAL_COLOR "\x1B[0m"
 # define RED_COLOR "\x1B[31m"
 # define GREEN_COLOR "\x1B[32m"
@@ -31,6 +32,7 @@
 # define CYAN_COLOR "\x1B[36m"
 # define WHITE_COLOR "\x1B[37m"
 
+char				*num_to_string(int num);
 void				*ft_incbyte(void *p, size_t inc_by);
 void				ft_print_color(char *str, char *color);
 void				ft_print_till(char *str, char c);

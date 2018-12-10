@@ -16,7 +16,6 @@ int		send_cmd(int sockfd, char *line)
 	int			len;
 
 	len = cmd_len(line);
-	ft_printf("len:: (%d)\n", len);
 	if (len > 5)
 		return (ft_putstr("Invalid command\n"));
 	ft_bzero(cmd, 5);

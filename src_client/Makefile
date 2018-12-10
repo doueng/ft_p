@@ -1,6 +1,5 @@
 NAME = ../client
 
-LIBFT = ../libft
 LIB = ../libft/libft.a
 
 #FLAGS =
@@ -12,21 +11,16 @@ SRCO = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(SRCO) $(LIB)
+$(NAME): $(SRCO)
 	@gcc $(SRCO) $(LIB) -o $(NAME)
-
-$(LIB):
-	@make -C $(LIBFT)
 
 %.o: %.c
 	@gcc -c $(FLAGS) $< -o $@
 
 clean:
 	@/bin/rm -f $(SRCO)
-	@make -C $(LIBFT) clean
 
 fclean: clean
 	@/bin/rm -f $(NAME)
-	@make -C $(LIBFT) fclean
 
 re: fclean all

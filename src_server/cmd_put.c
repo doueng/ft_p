@@ -1,13 +1,13 @@
 #include "server.h"
 
-char		*cmd_put(int cfd)
+char		*cmd_put(int cfd, char *arg)
 {
 	char		*filename;
 	uint32_t	filesize;
 
-	filename = get_msg(cfd);
+	filename = arg;
 	ft_printf("filename: (%s)\n", filename);
-	X(read(cfd, &filesize, 4));
+	X(recv(cfd, &filesize, 4, MSG_WAITALL));
 	ft_printf("filesize: (%d)\n", filesize);
 	write_to_file(cfd, filename, filesize);
 	return (Xv(ft_strdup("File uploaded!!!!")));

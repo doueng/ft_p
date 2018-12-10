@@ -12,7 +12,10 @@ int		sender(int sockfd, char *line)
 
 void	prompt(void)
 {
-	ft_printf("Server :::  ");
+	ft_putstr(BOLD_TEXT);
+	ft_print_color("client", CYAN_COLOR);
+	ft_putstr(" 👉  ");
+	ft_putstr(NORMAL_COLOR);
 }
 
 void	main_loop(int sockfd)
@@ -28,10 +31,12 @@ void	main_loop(int sockfd)
 		X(ret);
 		trimmed_cmd = ft_strtrim(line);
 		if (0 == sender(sockfd, trimmed_cmd))
-			print_answer(sockfd);
+			print_response(sockfd);
 		free(trimmed_cmd);
 		free(line);
 		line = NULL;
+		if (ft_strequ(trimmed_cmd, "quit"))
+			break ;
 		prompt();
 	}
 }

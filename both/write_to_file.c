@@ -8,7 +8,7 @@ void		write_to_file(int cfd, char *filename, uint32_t filesize)
 	/* char	*mod_buff; */
 	/* int		buffsize; */
 
-	X((filefd = open(filename, O_WRONLY | O_CREAT)));
+	X((filefd = open(filename, O_RDWR | O_CREAT | O_TRUNC)));
 	/* buffsize = 100; */
 	/* Xv(mod_buff = ft_strnew(filesize % buffsize)); */
 	while (filesize--)

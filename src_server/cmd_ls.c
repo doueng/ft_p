@@ -10,28 +10,27 @@ static char	*file_to_str(char *path)
 	X(fstat(fd, &st));
 	Xv((str = ft_strnew(st.st_size)));
 	X(read(fd, str, st.st_size));
+	str[st.st_size - 1] = 0;
+	X(close(fd));
 	return (str);
 }
 
-char		*cmd_ls(int cfd)
+char		*cmd_ls(char *arg, t_env *env)
 {
 	pid_t	pid;
 	int		ret;
 	int		fd;
-	char	*msg;
 
 	X((pid = fork()));
-	fd = 0;
 	if (pid == 0)
 	{
-		fd = open("tmp", O_CREAT | O_RDWR | O_TRUNC);
-		msg = get_msg(cfd);
+		fd = open(env->tmp_path, O_CREAT | O_RDWR | O_TRUNC);
 		dup2(fd, 1);
-		ret = execl("./ft_ls", "ft_ls", msg, NULL);
-		close(fd);
+		ret = execl(env->ls_path, "ft_ls", arg, NULL);
+		X(close(fd));
 		exit(ret);
 	}
 	else
 		wait(&pid);
-	return (file_to_str("tmp"));
+	return (file_to_str(env->tmp_path));
 }

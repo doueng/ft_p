@@ -15,6 +15,7 @@ FLAGS = -Werror -Wextra -Wall
 
 SRC = ft_atoi.c	\
 	  ft_print_color.c	\
+	  ft_num_to_string.c	\
 	  btree_get_nth.c	\
 	  btree_num_nodes.c	\
 	  ft_print_till.c	\

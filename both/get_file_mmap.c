@@ -11,6 +11,6 @@ void		*get_file_mmap(char *filename, uint32_t *size)
 	X(fstat(fd, &st));
 	*size = st.st_size;
 	Xv((file = mmap(NULL, st.st_size, PROT_READ, MAP_SHARED, fd, 0)));
-	X(close(fd));
+	/* X(close(fd)); WTF!!!! */
 	return (file);
 }

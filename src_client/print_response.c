@@ -1,13 +1,13 @@
 #include "client.h"
 
-void	print_answer(int sockfd)
+void	print_response(int sockfd)
 {
-	char	*answer;
+	char	*response;
 	int		len;
 
 	read(sockfd, &len, 4);
-	Xv(answer = ft_strnew(len));
-	read(sockfd, answer, len);
-	ft_printf("%s\n", answer);
-	free(answer);
+	Xv(response = ft_strnew(len));
+	read(sockfd, response, len);
+	ft_printf("%s\n", response);
+	free(response);
 }

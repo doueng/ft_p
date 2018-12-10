@@ -1,12 +1,12 @@
 #include "server.h"
 
-char	*cmd_get(int cfd)
+char	*cmd_get(int cfd, char *arg)
 {
 	char		*filename;
 	uint32_t	filesize;
 	void		*file;
 
-	filename = get_msg(cfd);
+	filename = arg;
 	if (NULL == (file = get_file_mmap(filename, &filesize)))
 		return (Xv(ft_strdup("Could not open file\n")));
 	write(cfd, &filesize, 4);
