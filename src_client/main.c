@@ -4,10 +4,10 @@ int main(int argc, char *argv[])
 {
 	int					sockfd;
 
-	if (argc != 2)
-		return (ft_printf("wrong number args\n"));
+	if (argc != 3)
+		return (ft_putstr("Usage: ./client <address> <port>\n"));
 	sockfd = get_socket();
-	connect_to_srv(sockfd, argv[1]);
+	connect_to_srv(sockfd, argv[1], ft_atoi(argv[2]));
 	main_loop(sockfd);
 	return (0);
 }

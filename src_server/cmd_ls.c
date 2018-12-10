@@ -1,30 +1,37 @@
 #include "server.h"
 
-char	*cmd_ls(void)
+static char	*file_to_str(char *path)
 {
-	DIR				*dir;
-	struct dirent	*curr;
-	char			*file_names;
-	int				i;
-	int				len;
+	struct stat st;
+	char		*str;
+	int			fd;
 
-	len = 1000;
-	Xv((file_names = ft_strnew(len)));
-	Xv((dir = opendir(".")));
-	i = 0;
-	while ((curr = readdir(dir)))
+	fd = X(open(path, O_RDONLY));
+	X(fstat(fd, &st));
+	Xv((str = ft_strnew(st.st_size)));
+	X(read(fd, str, st.st_size));
+	return (str);
+}
+
+char		*cmd_ls(int cfd)
+{
+	pid_t	pid;
+	int		ret;
+	int		fd;
+	char	*msg;
+
+	X((pid = fork()));
+	fd = 0;
+	if (pid == 0)
 	{
-		ft_memcpy(file_names + i, curr->d_name, curr->d_namlen);
-		i += curr->d_namlen;
-		file_names[i] = '\n';
-		i++;
-		if (i >= len)
-		{
-			file_names = double_str_size(file_names, len);
-			len *= 2;
-		}
+		fd = open("tmp", O_CREAT | O_RDWR | O_TRUNC);
+		msg = get_msg(cfd);
+		dup2(fd, 1);
+		ret = execl("./ft_ls", "ft_ls", msg, NULL);
+		close(fd);
+		exit(ret);
 	}
-	file_names[i - 1] = 0;
-	X(closedir(dir));
-	return (file_names);
+	else
+		wait(&pid);
+	return (file_to_str("tmp"));
 }

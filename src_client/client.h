@@ -5,16 +5,16 @@
 # include "../both/both.h"
 # include <sys/socket.h>
 # include <arpa/inet.h>
-# include <sys/stat.h>
-# include <sys/mman.h>
 
 # define PORT 1800
 # define MAXLINE 4096
 
+int		get_file(int sockfd, char *line);
 void	print_answer(int sockfd);
-void	connect_to_srv(int sockfd, char *address);
-int		send_cmd(int sockfd, char *cmd);
-int		send_file(int sockfd, char *cmd);
+void	connect_to_srv(int sockfd, char *address, int port);
+int		send_file(int sockfd, char *line);
 void	main_loop(int sockfd);
+void	send_arg(int sockfd, char *line);
+int		send_cmd(int sockfd, char *line);
 
 #endif

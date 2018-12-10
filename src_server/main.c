@@ -1,35 +1,13 @@
 #include "server.h"
 
-char	*cmd_put(int cfd)
-{
-	char	*file_name;
-	off_t	file_size;
-	int		filefd;
-	char	buff;
-
-	file_name = NULL;
-	X(get_next_line(cfd, &file_name));
-	X(read(cfd, &file_size, sizeof(off_t)));
-	ft_printf("filesize: (%d)\n", file_size);
-	file_name += 3;
-	while (*file_name == ' ')
-		file_name++;
-	X((filefd = open(file_name, O_WRONLY | O_CREAT | O_APPEND)));
-	while (file_size--)
-	{
-		X(read(cfd, &buff, 1));
-		X(write(filefd, &buff, 1));
-	}
-	return (Xv(ft_strdup("File uploaded!!!!")));
-}
-
 char	*process_cmd(char *cmd, int cfd)
 {
 	char *res;
 
-	res = "Invalid command";
 	if (ft_strequ(cmd, "ls"))
-		res = cmd_ls();
+		res = cmd_ls(cfd);
+	else if (ft_strequ(cmd, "get"))
+		res = cmd_get(cfd);
 	else if (ft_strequ(cmd, "put"))
 		res = cmd_put(cfd);
 	else if (ft_strequ(cmd, "pwd"))
@@ -41,19 +19,20 @@ char	*process_cmd(char *cmd, int cfd)
 
 int read_cmd(int cfd)
 {
-	char		*cmd;
+	char		cmd[5];
 	char		*cmd_ret;
 	uint32_t	len;
 
 	while (1)
 	{
-		cmd = NULL;
-		X(get_next_line(cfd, &cmd));
+		X(read(cfd, cmd, 5));
+		ft_printf("cmd ((%s))\n", cmd);
+		if (ft_strequ(cmd, "quit"))
+			break ;
 		cmd_ret = process_cmd(cmd, cfd);
 		len = ft_strlen(cmd_ret);
 		send(cfd, &len, 4, 0);
 		write(cfd, cmd_ret, len);
-		free(cmd);
 		free(cmd_ret);
 	}
 	return (0);
@@ -73,24 +52,35 @@ int forker(int cfd)
 	/* return (WEXITSTATUS(stat_loc)); */
 }
 
-int main(void)
+int		start_listening(int port)
 {
-	int					lfd;
-	int					cfd;
 	struct sockaddr_in	servaddr;
+	int					lfd;
 
-	X(chdir("./data"));
 	X((lfd = get_socket()));
 	ft_bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-	servaddr.sin_port = htons(PORT);
+	servaddr.sin_port = htons(port);
 	X(bind(lfd, (struct sockaddr*)&servaddr, sizeof(servaddr)));
 	X(listen(lfd, 42));
+	return (lfd);
+}
+
+int main(int argc, char *argv[])
+{
+	int					lfd;
+	int					cfd;
+
+	if (argc != 2)
+		return (ft_putstr("Usage: ./server <PORT>\n"));
+	X(chdir("./data"));
+	lfd = start_listening(ft_atoi(argv[1]));
 	while (1)
 	{
 		X((cfd = accept(lfd, (struct sockaddr*)NULL, NULL)));
 		X(forker(cfd));
 	}
+	close(lfd);
 	return (0);
 }

@@ -1,11 +1,27 @@
 #include "client.h"
 
-int		send_cmd(int sockfd, char *cmd)
+static int	cmd_len(char *line)
 {
-	uint32_t len;
+	int len;
 
-	len = ft_strlen(cmd);
-	cmd[len] = '\n';
-	X(write(sockfd, cmd, len + 1));
+	len = 0;
+	while (*line && *line++ != ' ' && len <= 5)
+		len++;
+	return (len);
+}
+
+int		send_cmd(int sockfd, char *line)
+{
+	char		cmd[5];
+	int			len;
+
+	len = cmd_len(line);
+	ft_printf("len:: (%d)\n", len);
+	if (len > 5)
+		return (ft_putstr("Invalid command\n"));
+	ft_bzero(cmd, 5);
+	ft_strncpy(cmd, line, len);
+	X(write(sockfd, cmd, 5));
+	send_arg(sockfd, line + len);
 	return (0);
 }

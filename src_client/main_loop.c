@@ -1,11 +1,13 @@
 #include "client.h"
 
-int		sender(int sockfd, char *cmd)
+int		sender(int sockfd, char *line)
 {
-	if (0 == ft_strncmp(cmd, "put", 3))
-		return (send_file(sockfd, cmd));
+	if (0 == ft_strncmp(line, "put", 3))
+		return (send_file(sockfd, line));
+	else if (0 == ft_strncmp(line, "get", 3))
+		return (get_file(sockfd, line));
 	else
-		return (send_cmd(sockfd, cmd));
+		return (send_cmd(sockfd, line));
 }
 
 void	prompt(void)
@@ -15,21 +17,21 @@ void	prompt(void)
 
 void	main_loop(int sockfd)
 {
-	char	*cmd;
+	char	*line;
 	char	*trimmed_cmd;
 	int		ret;
 
-	cmd = NULL;
+	line = NULL;
 	prompt();
-	while ((ret = get_next_line(0, &cmd)))
+	while ((ret = get_next_line(0, &line)))
 	{
 		X(ret);
-		trimmed_cmd = ft_strtrim(cmd);
+		trimmed_cmd = ft_strtrim(line);
 		if (0 == sender(sockfd, trimmed_cmd))
 			print_answer(sockfd);
 		free(trimmed_cmd);
-		free(cmd);
-		cmd = NULL;
+		free(line);
+		line = NULL;
 		prompt();
 	}
 }
