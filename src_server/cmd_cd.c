@@ -12,7 +12,6 @@ char		*cmd_cd(char *arg)
 	if (-1 == chdir(new_path))
 		return (ft_strdup("Could not change directory"));
 	Xv((full_new_path = getcwd(NULL, 0)));
-	free(new_path);
 	if (ft_strstr(full_new_path, "/data"))
 	{
 		free(curr_path);

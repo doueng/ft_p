@@ -18,25 +18,51 @@ void	prompt(void)
 	ft_putstr(NORMAL_COLOR);
 }
 
+char	*get_line(int fd)
+{
+	char	*line;
+	char	buff;
+	int		len;
+	int		i;
+
+	len = 100;
+	i = 0;
+	Xv((line = ft_strnew(len)));
+	while (X(read(fd, &buff, 1)))
+	{
+		if (buff == '\n')
+			break ;
+		if (len - 1 == i)
+		{
+			double_str_size(line, len);
+			len *= 2;
+		}
+		line[i] = buff;
+		i++;
+	}
+	return (line);
+}
+
 void	main_loop(int sockfd)
 {
 	char	*line;
 	char	*trimmed_cmd;
-	int		ret;
 
 	line = NULL;
 	prompt();
-	while ((ret = get_next_line(0, &line)))
+	while ((line = get_line(STDIN_FILENO)))
 	{
-		X(ret);
 		trimmed_cmd = ft_strtrim(line);
 		if (0 == sender(sockfd, trimmed_cmd))
 			print_response(sockfd);
+		if (ft_strequ(trimmed_cmd, "quit"))
+		{
+			free(trimmed_cmd);
+			break ;
+		}
 		free(trimmed_cmd);
 		free(line);
 		line = NULL;
-		if (ft_strequ(trimmed_cmd, "quit"))
-			break ;
 		prompt();
 	}
 }

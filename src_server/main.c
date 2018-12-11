@@ -18,6 +18,8 @@ char	*process_cmd(char *cmd, int cfd, t_env *env)
 		res = cmd_cd(arg);
 	else
 		Xv((res = ft_strdup("Invalid command")));
+	if (arg)
+		free(arg);
 	return (res);
 }
 
@@ -36,6 +38,7 @@ int read_cmd(int cfd, t_env *env)
 		free(cmd_ret);
 	}
 	send_msg(cfd, "Connection terminated");
+	ft_printf("Socket %d disconnected\n", cfd);
 	X(close(cfd));
 	return (0);
 }
@@ -81,6 +84,7 @@ int main(int argc, char *argv[])
 	while (1)
 	{
 		X((cfd = accept(lfd, (struct sockaddr*)NULL, NULL)));
+		ft_printf("Socket %d connected\n", cfd);
 		X(forker(cfd, env));
 	}
 	close(lfd);

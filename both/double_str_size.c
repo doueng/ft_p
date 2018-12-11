@@ -1,11 +1,11 @@
 #include "both.h"
 
-char	*double_str_size(char *curr, int size)
+char	*double_str_size(char *curr, int len)
 {
 	char *new;
 
-	Xv((new = ft_strnew(size * 2)));
-	ft_memcpy(new, curr, size);
+	Xv((new = ft_strnew(len * 2)));
+	ft_memcpy(new, curr, len);
 	free(curr);
 	return (new);
 }
