@@ -10,7 +10,6 @@ static char	*file_to_str(char *path)
 	X(fstat(fd, &st));
 	Xv((str = ft_strnew(st.st_size)));
 	X(read(fd, str, st.st_size));
-	str[st.st_size - 1] = 0;
 	X(close(fd));
 	return (str);
 }
@@ -18,19 +17,19 @@ static char	*file_to_str(char *path)
 char		*cmd_ls(char *arg, t_env *env)
 {
 	pid_t	pid;
-	int		ret;
 	int		fd;
 
 	X((pid = fork()));
 	if (pid == 0)
 	{
-		fd = open(env->tmp_path, O_CREAT | O_RDWR | O_TRUNC);
-		dup2(fd, 1);
-		ret = execl(env->ls_path, "ft_ls", arg, NULL);
+		fd = open(env->tmp_path, O_CREAT | O_RDWR | O_TRUNC | O_SHLOCK);
+		X(dup2(fd, STDOUT_FILENO));
 		X(close(fd));
-		exit(ret);
+		exit(execl(env->ls_path, "ft_ls", arg, NULL));
 	}
 	else
+	{
 		wait(&pid);
+	}
 	return (file_to_str(env->tmp_path));
 }

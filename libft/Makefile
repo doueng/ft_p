@@ -122,10 +122,10 @@ SRCO = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(SRCO)
-	@ar rc $(NAME) $(SRCO)
+	@ar rc $(NAME)  $(SRCO)
 
 %.o: %.c
-	@gcc -c $(FLAGS) $< -o $@
+	@gcc -c $(FLAGS) -I libft.h $< -o $@
 
 clean:
 	@/bin/rm -f $(SRCO)
