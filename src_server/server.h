@@ -16,6 +16,8 @@ typedef struct	s_env
 }				t_env;
 
 int		start_listening(int port);
+char		*cmd_rmdir(char *arg);
+char	*cmd_mkdir(char *arg);
 char	*cmd_cd(char *arg);
 char	*cmd_ls(char *arg, t_env *env);
 char	*cmd_pwd(void);

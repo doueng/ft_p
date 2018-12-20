@@ -16,6 +16,10 @@ char	*process_cmd(char *cmd, int cfd, t_env *env)
 		res = cmd_pwd();
 	else if (ft_strequ(cmd, "cd"))
 		res = cmd_cd(arg);
+	else if (ft_strequ(cmd, "mkdir"))
+		res = cmd_mkdir(arg);
+	else if (ft_strequ(cmd, "rmdir"))
+		res = cmd_rmdir(arg);
 	else
 		Xv((res = ft_strdup("Invalid command")));
 	if (arg)
@@ -25,12 +29,12 @@ char	*process_cmd(char *cmd, int cfd, t_env *env)
 
 int read_cmd(int cfd, t_env *env)
 {
-	char		cmd[5];
+	char		cmd[CMD_LEN];
 	char		*cmd_ret;
 
 	while (1)
 	{
-		X(read(cfd, cmd, 5));
+		X(read(cfd, cmd, CMD_LEN));
 		if (ft_strequ(cmd, "quit"))
 			break ;
 		cmd_ret = process_cmd(cmd, cfd, env);

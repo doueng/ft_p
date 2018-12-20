@@ -13,7 +13,10 @@
 
 # define MAXLINE 4096
 # define END_MSG "\n\r\n\r"
+# define CMD_LEN 6
 
+void	ft_errormsg(char *msg);
+char	*add_to_cwd(char *filename);
 void	send_msg(int sockfd, char *msg);
 char	*get_msg(int sockfd);
 void	*get_file_mmap(char *filename, uint32_t *size);
