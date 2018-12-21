@@ -13,14 +13,17 @@ typedef struct	s_env
 {
 	char		*ls_path;
 	char		*tmp_path;
+	char		*arg;
+	int			cfd;
 }				t_env;
 
 int		start_listening(int port);
-char		*cmd_rmdir(char *arg);
-char	*cmd_mkdir(char *arg);
-char	*cmd_cd(char *arg);
-char	*cmd_ls(char *arg, t_env *env);
-char	*cmd_pwd(void);
-char	*cmd_put(int cfd, char *arg);
-char	*cmd_get(int cfd, char *arg);
+char	*cmd_cd(t_env *env);
+char	*cmd_ls(t_env *env);
+char	*cmd_pwd(t_env *env);
+char	*cmd_get(t_env *env);
+char	*cmd_put(t_env *env);
+char	*cmd_rmdir(t_env *env);
+char	*cmd_mkdir(t_env *env);
+char	*cmd_quit(t_env *env);
 #endif

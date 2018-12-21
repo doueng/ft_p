@@ -1,16 +1,16 @@
 #include "server.h"
 
-char		*cmd_cd(char *arg)
+char		*cmd_cd(t_env *env)
 {
 	char	*curr_path;
 	char	*new_path;
 	char	*full_new_path;
 
-	if (!(new_path = arg))
+	if (!(new_path = env->arg))
 		return (ft_strdup("Usage: cd <path>"));
 	Xv((curr_path = getcwd(NULL, 0)));
 	if (-1 == chdir(new_path))
-		return (ft_strdup("Could not change directory"));
+		return (Xv(ft_strdup("Could not change directory")));
 	Xv((full_new_path = getcwd(NULL, 0)));
 	if (ft_strstr(full_new_path, "/data"))
 	{
@@ -22,6 +22,7 @@ char		*cmd_cd(char *arg)
 		X(chdir(curr_path));
 		free(full_new_path);
 		free(curr_path);
-		return (ft_strdup("Cannot move outside the data directory"));
+		return (Xv(ft_strdup("Cannot move outside the data directory")));
 	}
 }
+// add free

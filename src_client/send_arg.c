@@ -2,7 +2,7 @@
 
 static void	send_empty_arg(int sockfd)
 {
-	int len;
+	uint32_t len;
 
 	len = 0;
 	X(write(sockfd, &len, 4));

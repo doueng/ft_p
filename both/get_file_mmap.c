@@ -1,6 +1,6 @@
 #include "both.h"
 
-void		*get_file_mmap(char *filename, uint32_t *size)
+void		*get_file_mmap(char *filename, uint64_t *size)
 {
 	struct stat st;
 	void		*file;

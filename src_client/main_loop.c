@@ -2,9 +2,9 @@
 
 int		sender(int sockfd, char *line)
 {
-	if (0 == ft_strncmp(line, "put", 3))
+	if (ft_strnequ(line, "put", 3))
 		return (send_file(sockfd, line));
-	else if (0 == ft_strncmp(line, "get", 3))
+	else if (ft_strnequ(line, "get", 3))
 		return (get_file(sockfd, line));
 	else
 		return (send_cmd(sockfd, line));
