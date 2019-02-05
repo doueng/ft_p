@@ -8,7 +8,6 @@ int read_cmd(t_env *env, char *(**cmd_funcs)(t_env *env))
 	while (1)
 	{
 		X(read(env->cfd, &cmd, 1));
-		ft_printf("cmd %d, quit %d\n", cmd, QUIT);
 		env->arg = get_msg(env->cfd);
 		cmd_ret = cmd_funcs[cmd](env);
 		send_msg(env->cfd, cmd_ret);

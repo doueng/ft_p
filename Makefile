@@ -2,7 +2,7 @@ CLIENT=src_client
 SERVER=src_server
 LIBFT=libft
 FT_LS=ft_ls
-MAKE=@bear gmake -s
+MAKE=@bear make -s
 
 all:
 	$(MAKE) -C $(LIBFT)
