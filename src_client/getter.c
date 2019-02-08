@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   getter.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/08 20:20:30 by dengstra          #+#    #+#             */
+/*   Updated: 2019/02/08 20:20:31 by dengstra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "client.h"
 
 static char	get_cmd_code(char *line)
@@ -33,14 +45,13 @@ void		get_env(t_env *env, char *line)
 	env->line = tline;
 }
 
-int		get_file(int sockfd, t_env *env)
+int			get_file(int sockfd, t_env *env)
 {
 	uint64_t	filesize;
 
 	send_cmd(sockfd, env);
 	X(read(sockfd, &filesize, NUM_BYTES_FILESIZE));
 	write_to_file(sockfd, env->args, filesize);
-	ft_printf("got file\n");
 	return (0);
 }
 
@@ -55,7 +66,7 @@ char		*get_line(int fd)
 	while (X(read(fd, &buff, 1)))
 	{
 		if (*buff == '\n')
-			break;
+			break ;
 		line = Xv(ft_strjoinfree(0, buff, 1, line));
 	}
 	rev_line = Xv(ft_strrev(line));

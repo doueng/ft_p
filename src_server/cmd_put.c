@@ -20,9 +20,7 @@ char		*cmd_put(t_env *env)
 	filename = env->arg;
 	if (filename == NULL && -1 == check_path(env->server_data_path, filename))
 		return (ft_strdup("Invalid argument"));
-	ft_printf("filename: (%s)\n", filename);
 	X(recv(env->cfd, &filesize, NUM_BYTES_FILESIZE, MSG_WAITALL));
-	ft_printf("filesize: (%d)\n", filesize);
 	write_to_file(env->cfd, filename, filesize);
 	return (Xv(ft_strdup("File uploaded!!!!")));
 }

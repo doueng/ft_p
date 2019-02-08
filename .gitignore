@@ -10,3 +10,4 @@ client*
 bin/
 tmp/
 ft_ls
+server_data

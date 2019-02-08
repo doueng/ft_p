@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sender.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/08 20:20:41 by dengstra          #+#    #+#             */
+/*   Updated: 2019/02/08 20:20:46 by dengstra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "client.h"
 
-static void	send_arg(int sockfd, t_env *env)
+static void		send_arg(int sockfd, t_env *env)
 {
-	uint32_t	len;
+	uint32_t len;
 
 	len = 0;
 	if (!env->args)
@@ -11,8 +23,7 @@ static void	send_arg(int sockfd, t_env *env)
 		send_msg(sockfd, env->args);
 }
 
-
-static int	send_file(int sockfd, t_env *env)
+static int		send_file(int sockfd, t_env *env)
 {
 	void		*file;
 	uint64_t	filesize;
@@ -26,14 +37,14 @@ static int	send_file(int sockfd, t_env *env)
 	return (0);
 }
 
-int		send_cmd(int sockfd, t_env *env)
+int				send_cmd(int sockfd, t_env *env)
 {
 	X(write(sockfd, &env->cmd, 1));
 	send_arg(sockfd, env);
 	return (0);
 }
 
-int			sender(int sockfd, t_env *env)
+int				sender(int sockfd, t_env *env)
 {
 	if (env->cmd == -1)
 	{

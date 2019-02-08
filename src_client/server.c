@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/08 20:20:49 by dengstra          #+#    #+#             */
+/*   Updated: 2019/02/08 20:20:50 by dengstra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "client.h"
 
-static void		prompt(void)
+static void	prompt(void)
 {
 	ft_putstr(BOLD_TEXT);
 	ft_print_color("client", CYAN_COLOR);
@@ -8,7 +20,7 @@ static void		prompt(void)
 	ft_putstr(NORMAL_COLOR);
 }
 
-static void		main_loop(int sockfd)
+static void	main_loop(int sockfd)
 {
 	char	*line;
 	t_env	env;
@@ -28,7 +40,7 @@ static void		main_loop(int sockfd)
 	}
 }
 
-int		main(int argc, char *argv[])
+int			main(int argc, char *argv[])
 {
 	int					sockfd;
 

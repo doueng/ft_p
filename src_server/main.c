@@ -33,8 +33,8 @@ int			read_cmd(t_env *env, char *(**cmd_funcs)(t_env *env))
 
 int			forker(t_env *env, char *(**cmd_funcs)(t_env *env))
 {
-	/* int			stat_loc; */
 	pid_t		pid;
+	/* int			stat_loc; */
 
 	X((pid = fork()));
 	if (pid == 0)
