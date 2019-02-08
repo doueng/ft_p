@@ -25,12 +25,12 @@ typedef struct		s_env
 	char			*line;
 }					t_env;
 
+int					send_cmd(int sockfd, t_env *env);
 int					sender(int sockfd, t_env *env);
 char				*get_line(int fd);
 void				get_env(t_env *env, char *line);
 int					get_file(int sockfd, t_env *env);
 void				print_response(int sockfd);
 void				connect_to_srv(int sockfd, char *address, int port);
-void				main_loop(int sockfd);
 
 #endif

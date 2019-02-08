@@ -11,12 +11,6 @@ static void	send_arg(int sockfd, t_env *env)
 		send_msg(sockfd, env->args);
 }
 
-static int	send_cmd(int sockfd, t_env *env)
-{
-	X(write(sockfd, &env->cmd, 1));
-	send_arg(sockfd, env);
-	return (0);
-}
 
 static int	send_file(int sockfd, t_env *env)
 {
@@ -29,6 +23,13 @@ static int	send_file(int sockfd, t_env *env)
 	X(write(sockfd, &filesize, NUM_BYTES_FILESIZE));
 	X(write(sockfd, file, filesize));
 	X(munmap(file, filesize));
+	return (0);
+}
+
+int		send_cmd(int sockfd, t_env *env)
+{
+	X(write(sockfd, &env->cmd, 1));
+	send_arg(sockfd, env);
 	return (0);
 }
 

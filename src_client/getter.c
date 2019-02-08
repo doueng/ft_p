@@ -32,3 +32,32 @@ void		get_env(t_env *env, char *line)
 	env->cmd = get_cmd_code(tline);
 	env->line = tline;
 }
+
+int		get_file(int sockfd, t_env *env)
+{
+	uint64_t	filesize;
+
+	send_cmd(sockfd, env);
+	X(read(sockfd, &filesize, NUM_BYTES_FILESIZE));
+	write_to_file(sockfd, env->args, filesize);
+	ft_printf("got file\n");
+	return (0);
+}
+
+char		*get_line(int fd)
+{
+	char	*line;
+	char	buff[2];
+	char	*rev_line;
+
+	line = ft_strnew(1);
+	ft_bzero(&buff, 2);
+	while (X(read(fd, &buff, 1)))
+	{
+		if (*buff == '\n')
+			break;
+		line = Xv(ft_strjoinfree(0, buff, 1, line));
+	}
+	rev_line = Xv(ft_strrev(line));
+	return (rev_line);
+}
