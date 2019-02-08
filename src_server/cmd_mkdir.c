@@ -20,7 +20,7 @@ char		*cmd_mkdir(t_env *env)
 	if (env->arg == NULL && -1 == check_path(env->server_data_path, env->arg))
 		return (ft_strdup("Invalid argument"));
 	new_dir_path = add_to_cwd(env->arg);
-	res = (mkdir(new_dir_path, 755)) == -1
+	res = (mkdir(new_dir_path, 0755)) == -1
 		? "Failed to create "
 		: "Created ";
 	free(new_dir_path);

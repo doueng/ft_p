@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "server.h"
-#include <errno.h> // remove
-#include <stdio.h> // remove
 
 char		*cmd_rmdir(t_env *env)
 {
@@ -21,9 +19,10 @@ char		*cmd_rmdir(t_env *env)
 
 	if (env->arg == NULL && -1 == check_path(env->server_data_path, env->arg))
 		return (ft_strdup("Invalid argument"));
+	if (ft_strequ(".", env->arg) || ft_strequ("..", env->arg))
+		return (ft_strdup("Can't delete '.' or '..'"));
 	dir_path = add_to_cwd(env->arg);
-	res = (unlink(dir_path)) == -1 ? "Failed to remove " : "Removed dir ";
+	res = (rmdir(dir_path)) == -1 ? "Failed to remove " : "Removed dir ";
 	free(dir_path);
-	perror(strerror(errno)); // remove
 	return (Xv(ft_strjoin(res, env->arg)));
 }
