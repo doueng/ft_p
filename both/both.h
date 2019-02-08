@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   both.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dengstra <dengstra@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/07 15:26:10 by dengstra          #+#    #+#             */
+/*   Updated: 2019/02/07 15:27:59 by dengstra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BOTH_H
 # define BOTH_H
 # include "../libft/libft.h"
@@ -19,11 +31,15 @@ enum {
 	MKDIR,
 	RMDIR,
 	QUIT,
-	NUM_CMDS
+	HELP,
+	NUM_CMDS,
+	INVALID_PATH
 };
 
-# define CMD_LEN 6
+# define NUM_BYTES_FILESIZE 8
+# define NUM_BYTES_CMD 4
 
+int			check_path(char *server_data_path, char *file_or_dir);
 void	*get_file_mmap(char *filename, uint64_t *size);
 void	ft_errormsg(char *msg);
 char	*add_to_cwd(char *filename);

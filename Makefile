@@ -1,8 +1,8 @@
 CLIENT=src_client
 SERVER=src_server
 LIBFT=libft
-FT_LS=ft_ls
-MAKE=@bear make -s
+FT_LS=src_ft_ls
+MAKE=make
 
 all:
 	$(MAKE) -C $(LIBFT)

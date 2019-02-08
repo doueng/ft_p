@@ -2,7 +2,6 @@ NAME = ../client
 
 LIB = ../libft/libft.a
 
-#FLAGS =
 FLAGS = -Werror -Wextra -Wall -g
 
 SRC = $(wildcard *.c ../both/*.c)

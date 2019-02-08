@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ../bin/ft_ls
+NAME = ../ft_ls
 FLAGS = -Wextra -Wall -Werror
 LIB = ../libft/libft.a
 
@@ -36,4 +36,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean re all make_lib
+.PHONY: clean fclean re all
