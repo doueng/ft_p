@@ -17,7 +17,7 @@ char		*cmd_rmdir(t_env *env)
 	char *res;
 	char *dir_path;
 
-	if (env->arg == NULL && -1 == check_path(env->server_data_path, env->arg))
+	if (env->arg == NULL && -1 == check_path(env->root, env->arg))
 		return (ft_strdup("Invalid argument"));
 	if (ft_strequ(".", env->arg) || ft_strequ("..", env->arg))
 		return (ft_strdup("Can't delete '.' or '..'"));

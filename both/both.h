@@ -39,13 +39,13 @@ enum {
 # define NUM_BYTES_FILESIZE 8
 # define NUM_BYTES_CMD 4
 
-int			check_path(char *server_data_path, char *file_or_dir);
+void	write_to_file(int cfd, char *filename, uint64_t filesize);
+int		check_path(char *server_data_path, char *file_or_dir);
 void	*get_file_mmap(char *filename, uint64_t *size);
 void	ft_errormsg(char *msg);
 char	*add_to_cwd(char *filename);
 void	send_msg(int sockfd, char *msg);
 char	*get_msg(int sockfd);
-void	write_to_file(int cfd, char *filename, uint32_t filesize);
 char	*double_str_size(char *curr, int size);
 void	ft_error(char *file, int line);
 int		get_socket(void);

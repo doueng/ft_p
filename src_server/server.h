@@ -23,7 +23,7 @@
 
 typedef struct	s_env
 {
-	char		*server_data_path;
+	char		*root;
 	char		*ls_path;
 	char		*tmp_path;
 	char		*arg;

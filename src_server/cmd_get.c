@@ -17,14 +17,25 @@ char	*cmd_get(t_env *env)
 	char		*filename;
 	uint64_t	filesize;
 	void		*file;
+	char		*res;
 
 	filename = env->arg;
-	if (filename == NULL && -1 == check_path(env->server_data_path, filename))
-		return (ft_strdup("Invalid argument"));
-	if (NULL == (file = get_file_mmap(filename, &filesize)))
-		return (Xv(ft_strdup("Could not open file\n")));
-	write(env->cfd, &filesize, 8);
-	X(write(env->cfd, file, filesize));
-	X(munmap(file, filesize));
-	return (Xv(ft_strdup("File downloading!!!")));
+	filesize = 0;
+	res = "File downloading!!!";
+	if (filename == NULL && -1 == check_path(env->root, filename))
+	{
+		X(write(env->cfd, &filesize, 8));
+		res = "Invalid argument";
+	}
+	else if (NULL == (file = get_file_mmap(filename, &filesize)))
+	{
+		X(write(env->cfd, &filesize, 8));
+		res = "Could not open file\n";
+	}
+	else
+	{
+		X(write(env->cfd, file, filesize));
+		X(munmap(file, filesize));
+	}
+	return (Xv(ft_strdup(res)));
 }

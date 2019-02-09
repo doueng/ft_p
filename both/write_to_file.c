@@ -13,7 +13,7 @@
 #include "both.h"
 
 // optimize
-void		write_to_file(int cfd, char *filename, uint32_t filesize)
+void		write_to_file(int cfd, char *filename, uint64_t filesize)
 {
 	int		filefd;
 	char	buff;

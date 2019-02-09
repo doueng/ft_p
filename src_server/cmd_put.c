@@ -18,7 +18,7 @@ char		*cmd_put(t_env *env)
 	uint64_t	filesize;
 
 	filename = env->arg;
-	if (filename == NULL && -1 == check_path(env->server_data_path, filename))
+	if (filename == NULL && -1 == check_path(env->root, filename))
 		return (ft_strdup("Invalid argument"));
 	X(recv(env->cfd, &filesize, NUM_BYTES_FILESIZE, MSG_WAITALL));
 	write_to_file(env->cfd, filename, filesize);

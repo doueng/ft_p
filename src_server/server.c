@@ -52,7 +52,7 @@ t_env		*create_env(t_env *env)
 	Xv((cwd = getcwd(NULL, 0)));
 	env->ls_path = Xv(ft_strjoin(cwd, "/ft_ls"));
 	env->tmp_path = Xv(ft_strjoin(cwd, "/tmp/tmp"));
-	env->server_data_path = ft_strjoin(cwd, "/server_data");
+	env->root = ft_strjoin(cwd, "/root");
 	free(cwd);
 	return (env);
 }
@@ -84,7 +84,7 @@ int			main(int argc, char *argv[])
 		return (ft_putstr("Usage: ./server <PORT>\n"));
 	create_env(&env);
 	cmd_funcs = get_cmd_funcs();
-	X(chdir("server_data"));
+	X(chdir("root"));
 	lfd = start_listening(ft_atoi(argv[1]));
 	while (1)
 	{
@@ -94,7 +94,7 @@ int			main(int argc, char *argv[])
 	}
 	free(env.ls_path);
 	free(env.tmp_path);
-	free(env.server_data_path);
+	free(env.root);
 	close(lfd);
 	return (0);
 }

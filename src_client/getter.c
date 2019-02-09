@@ -48,10 +48,14 @@ void		get_env(t_env *env, char *line)
 int			get_file(int sockfd, t_env *env)
 {
 	uint64_t	filesize;
+	char		*res;
 
 	send_cmd(sockfd, env);
 	X(read(sockfd, &filesize, NUM_BYTES_FILESIZE));
-	write_to_file(sockfd, env->args, filesize);
+	if (filesize > 0)
+		write_to_file(sockfd, env->args, filesize);
+	res = get_msg(sockfd);
+	ft_putstr(res);
 	return (0);
 }
 

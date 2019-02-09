@@ -14,10 +14,10 @@
 
 char		*cmd_mkdir(t_env *env)
 {
-	char	*res;
-	char	*new_dir_path;
+	char *res;
+	char *new_dir_path;
 
-	if (env->arg == NULL && -1 == check_path(env->server_data_path, env->arg))
+	if (env->arg == NULL && -1 == check_path(env->root, env->arg))
 		return (ft_strdup("Invalid argument"));
 	new_dir_path = add_to_cwd(env->arg);
 	res = (mkdir(new_dir_path, 0755)) == -1
