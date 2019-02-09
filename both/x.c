@@ -27,14 +27,14 @@ static void	print_errmsg(char *file, int line)
 	exit(-1);
 }
 
-int		x_int(int res, char *file, int line)
+int			x_int(int res, char *file, int line)
 {
 	if (res == -1)
 		print_errmsg(file, line);
 	return (res);
 }
 
-void	*x_void(void *res, char *file, int line)
+void		*x_void(void *res, char *file, int line)
 {
 	if (res == NULL)
 		print_errmsg(file, line);
