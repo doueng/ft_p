@@ -20,7 +20,7 @@ char	*get_msg(int sockfd)
 	X(recv(sockfd, &len, NUM_BYTES_CMD, MSG_WAITALL));
 	if (len == 0)
 		return (NULL);
-	Xv((msg = ft_strnew(len)));
+	XV((msg = ft_strnew(len)));
 	X(recv(sockfd, msg, len, MSG_WAITALL));
 	return (msg);
 }

@@ -24,5 +24,5 @@ char		*cmd_mkdir(t_env *env)
 		? "Failed to create "
 		: "Created ";
 	free(new_dir_path);
-	return (Xv(ft_strjoin(res, env->arg)));
+	return (XV(ft_strjoin(res, env->arg)));
 }

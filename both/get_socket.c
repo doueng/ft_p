@@ -14,10 +14,8 @@
 
 int	get_socket(void)
 {
-	struct protoent	*pe;
 	int				sockfd;
 
-	Xv((pe = getprotobyname("tcp")));
-	X((sockfd = socket(AF_INET, SOCK_STREAM, pe->p_proto)));
+	X((sockfd = socket(AF_INET, SOCK_STREAM, 6)));
 	return (sockfd);
 }

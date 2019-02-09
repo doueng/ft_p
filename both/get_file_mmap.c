@@ -22,12 +22,8 @@ void		*get_file_mmap(char *filename, uint64_t *size)
 		return (NULL);
 	X(fstat(fd, &st));
 	if (st.st_mode & S_IFDIR)
-	{
-		/* X(close(fd)); */
 		return (NULL);
-	}
 	*size = st.st_size;
-	Xv((file = mmap(NULL, st.st_size, PROT_READ, MAP_SHARED, fd, 0)));
-	/* X(close(fd)); WTF!!!! */
+	XV((file = mmap(NULL, st.st_size, PROT_READ, MAP_SHARED, fd, 0)));
 	return (file);
 }

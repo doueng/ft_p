@@ -18,7 +18,7 @@ void	print_response(int sockfd)
 	int		len;
 
 	X(read(sockfd, &len, 4));
-	Xv(response = ft_strnew(len));
+	XV(response = ft_strnew(len));
 	X(read(sockfd, response, len));
 	ft_printf("%s\n", response);
 	free(response);

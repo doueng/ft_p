@@ -22,10 +22,10 @@ char	*cmd_help(t_env *env)
 
 	(void)env;
 	a = "Commands:\n\tcd folder\n\tls -options <file or folder>\n\tpwd\n";
-	b = "\tget file/folder\n\tput file/folder\n";
+	b = "\tget file\n\tput file\n";
 	c = "\tmkdir name\n\trmdir name\n\tquit\n\thelp";
-	tmp = Xv(ft_strjoin(a, b));
-	help = Xv(ft_strjoin(tmp, c));
+	tmp = XV(ft_strjoin(a, b));
+	help = XV(ft_strjoin(tmp, c));
 	free(tmp);
 	return (help);
 }

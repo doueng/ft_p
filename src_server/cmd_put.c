@@ -22,5 +22,5 @@ char		*cmd_put(t_env *env)
 		return (ft_strdup("Invalid argument"));
 	X(recv(env->cfd, &filesize, NUM_BYTES_FILESIZE, MSG_WAITALL));
 	write_to_file(env->cfd, filename, filesize);
-	return (Xv(ft_strdup("File uploaded!!!!")));
+	return (XV(ft_strdup("File uploaded!!!!")));
 }

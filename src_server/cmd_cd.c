@@ -17,10 +17,10 @@ char		*cmd_cd(t_env *env)
 	char	*new_path;
 
 	if (!(new_path = env->arg))
-		return ((Xv(ft_strdup("Usage: cd folder"))));
+		return ((XV(ft_strdup("Usage: cd folder"))));
 	if (-1 == check_path(env->root, new_path))
-		return (Xv(ft_strdup("Cannot move outside the data directory")));
+		return (XV(ft_strdup("Invalid path")));
 	if (-1 == chdir(new_path))
-		return (Xv(ft_strdup("Not a valid directory")));
-	return (ft_strdup(""));
+		return (XV(ft_strdup("Not a valid directory")));
+	return (ft_strdup(env->arg));
 }

@@ -19,14 +19,14 @@ char	*cmd_pwd(t_env *env)
 	char	*res;
 
 	i = 0;
-	cwd = Xv(getcwd(NULL, 0));
+	cwd = XV(getcwd(NULL, 0));
 	if (ft_strequ(env->root, cwd))
-		res = ft_strdup("root");
+		res = ft_strdup("/");
 	else
 	{
 		while (env->root[i] == cwd[i])
 			i++;
-		res = Xv(ft_strdup(cwd + i));
+		res = XV(ft_strdup(cwd + i));
 	}
 	free(cwd);
 	return (res);

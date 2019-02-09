@@ -24,6 +24,8 @@ int			read_cmd(t_env *env, char *(**cmd_funcs)(t_env *env))
 		cmd_ret = cmd_funcs[cmd](env);
 		send_msg(env->cfd, cmd_ret);
 		free(cmd_ret);
+		free(env->arg);
+		env->arg = NULL;
 		if (cmd == QUIT)
 			break ;
 	}
@@ -34,24 +36,20 @@ int			read_cmd(t_env *env, char *(**cmd_funcs)(t_env *env))
 int			forker(t_env *env, char *(**cmd_funcs)(t_env *env))
 {
 	pid_t		pid;
-	/* int			stat_loc; */
 
 	X((pid = fork()));
 	if (pid == 0)
 		exit(read_cmd(env, cmd_funcs));
-	/* else */
-		/* X(wait4(pid, &stat_loc, 0, 0)); */
-	return (1); // needs error handling
-	/* return (WEXITSTATUS(stat_loc)); */
+	return (1);
 }
 
 t_env		*create_env(t_env *env)
 {
 	char	*cwd;
 
-	Xv((cwd = getcwd(NULL, 0)));
-	env->ls_path = Xv(ft_strjoin(cwd, "/ft_ls"));
-	env->tmp_path = Xv(ft_strjoin(cwd, "/tmp/tmp"));
+	XV((cwd = getcwd(NULL, 0)));
+	env->ls_path = XV(ft_strjoin(cwd, "/ft_ls"));
+	env->tmp_path = XV(ft_strjoin(cwd, "/tmp/tmp"));
 	env->root = ft_strjoin(cwd, "/root");
 	free(cwd);
 	return (env);
@@ -61,7 +59,7 @@ void		*get_cmd_funcs(void)
 {
 	char *(**cmd_funcs)(t_env *env);
 
-	cmd_funcs = Xv(malloc(sizeof(void*) * NUM_CMDS));
+	cmd_funcs = XV(malloc(sizeof(void*) * NUM_CMDS));
 	cmd_funcs[CD] = cmd_cd;
 	cmd_funcs[LS] = cmd_ls;
 	cmd_funcs[PWD] = cmd_pwd;

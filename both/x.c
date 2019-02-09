@@ -11,27 +11,32 @@
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
-#include <stdio.h>
-#include <errno.h>
+
+static void	print_errmsg(char *file, int line)
+{
+	char *strline;
+
+	if (!(strline = ft_itoa(line)))
+	{
+		ft_putendl_fd("itoa failed in print_errmsg", 2);
+		exit(-1);
+	}
+	ft_putendl_fd("fild: ", 2);
+	ft_putendl_fd(file, 2);
+	ft_putendl_fd(strline, 2);
+	exit(-1);
+}
 
 int		x_int(int res, char *file, int line)
 {
 	if (res == -1)
-	{
-		ft_printf("file: %s\nline: %d\n", file, line);
-		perror(strerror(errno));
-		exit(1);
-	}
+		print_errmsg(file, line);
 	return (res);
 }
 
 void	*x_void(void *res, char *file, int line)
 {
 	if (res == NULL)
-	{
-		ft_printf("file: %s\nline: %d\n", file, line);
-		perror(strerror(errno));
-		exit(1);
-	}
+		print_errmsg(file, line);
 	return (res);
 }

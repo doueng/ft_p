@@ -19,7 +19,7 @@
 # include <sys/mman.h>
 # include <sys/stat.h>
 
-# define Xv(res)	(x_void(res,__FILE__,__LINE__))
+# define XV(res)	(x_void(res,__FILE__,__LINE__))
 # define X(res)		(x_int(res,__FILE__,__LINE__))
 
 enum {

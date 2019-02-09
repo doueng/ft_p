@@ -37,7 +37,7 @@ void		get_env(t_env *env, char *line)
 	char *tline;
 
 	ft_bzero(env, sizeof(*env));
-	tline = Xv(ft_strtrim(line));
+	tline = XV(ft_strtrim(line));
 	free(line);
 	if ((env->args = ft_strchr(tline, ' ')))
 		env->args = ft_strtrim(env->args);
@@ -48,14 +48,11 @@ void		get_env(t_env *env, char *line)
 int			get_file(int sockfd, t_env *env)
 {
 	uint64_t	filesize;
-	char		*res;
 
 	send_cmd(sockfd, env);
 	X(read(sockfd, &filesize, NUM_BYTES_FILESIZE));
 	if (filesize > 0)
 		write_to_file(sockfd, env->args, filesize);
-	res = get_msg(sockfd);
-	ft_putstr(res);
 	return (0);
 }
 
@@ -71,8 +68,8 @@ char		*get_line(int fd)
 	{
 		if (*buff == '\n')
 			break ;
-		line = Xv(ft_strjoinfree(0, buff, 1, line));
+		line = XV(ft_strjoinfree(0, buff, 1, line));
 	}
-	rev_line = Xv(ft_strrev(line));
+	rev_line = XV(ft_strrev(line));
 	return (rev_line);
 }

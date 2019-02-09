@@ -24,18 +24,19 @@ char	*cmd_get(t_env *env)
 	res = "File downloading!!!";
 	if (filename == NULL && -1 == check_path(env->root, filename))
 	{
-		X(write(env->cfd, &filesize, 8));
+		X(write(env->cfd, &filesize, NUM_BYTES_FILESIZE));
 		res = "Invalid argument";
 	}
 	else if (NULL == (file = get_file_mmap(filename, &filesize)))
 	{
-		X(write(env->cfd, &filesize, 8));
+		X(write(env->cfd, &filesize, NUM_BYTES_FILESIZE));
 		res = "Could not open file\n";
 	}
 	else
 	{
+		X(write(env->cfd, &filesize, NUM_BYTES_FILESIZE));
 		X(write(env->cfd, file, filesize));
 		X(munmap(file, filesize));
 	}
-	return (Xv(ft_strdup(res)));
+	return (XV(ft_strdup(res)));
 }

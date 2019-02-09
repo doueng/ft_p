@@ -24,5 +24,5 @@ char		*cmd_rmdir(t_env *env)
 	dir_path = add_to_cwd(env->arg);
 	res = (rmdir(dir_path)) == -1 ? "Failed to remove " : "Removed dir ";
 	free(dir_path);
-	return (Xv(ft_strjoin(res, env->arg)));
+	return (XV(ft_strjoin(res, env->arg)));
 }
