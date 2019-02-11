@@ -17,7 +17,7 @@ void		write_to_file(int cfd, char *filename, uint64_t filesize)
 	int		filefd;
 	char	buff;
 
-	X((filefd = open(filename, O_RDWR | O_CREAT | O_TRUNC)));
+	X((filefd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0755)));
 	while (filesize--)
 	{
 		X(read(cfd, &buff, 1));

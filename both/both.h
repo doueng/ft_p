@@ -46,8 +46,6 @@ void	ft_errormsg(char *msg);
 char	*add_to_cwd(char *filename);
 void	send_msg(int sockfd, char *msg);
 char	*get_msg(int sockfd);
-char	*double_str_size(char *curr, int size);
-void	ft_error(char *file, int line);
 int		get_socket(void);
 int		x_int(int res, char *file, int line);
 void	*x_void(void *res, char *file, int line);

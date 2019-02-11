@@ -12,31 +12,31 @@
 
 #include "../libft/libft.h"
 
-static void	print_errmsg(char *file, int line)
+static int	print_file_line(char *file, int line)
 {
 	char *strline;
 
 	if (!(strline = ft_itoa(line)))
 	{
 		ft_putendl_fd("itoa failed in print_errmsg", 2);
-		exit(-1);
+		return (-1);
 	}
 	ft_putendl_fd("fild: ", 2);
 	ft_putendl_fd(file, 2);
 	ft_putendl_fd(strline, 2);
-	exit(-1);
+	return (-1);
 }
 
 int			x_int(int res, char *file, int line)
 {
 	if (res == -1)
-		print_errmsg(file, line);
+		exit(print_file_line(file, line));
 	return (res);
 }
 
 void		*x_void(void *res, char *file, int line)
 {
 	if (res == NULL)
-		print_errmsg(file, line);
+		exit(print_file_line(file, line));
 	return (res);
 }

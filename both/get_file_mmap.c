@@ -18,7 +18,7 @@ void		*get_file_mmap(char *filename, uint64_t *size)
 	void		*file;
 	int			fd;
 
-	if (-1 == (fd = open(filename, O_RDONLY)))
+	if (-1 == (fd = open(filename, O_RDONLY, 0755)))
 		return (NULL);
 	X(fstat(fd, &st));
 	if (st.st_mode & S_IFDIR)

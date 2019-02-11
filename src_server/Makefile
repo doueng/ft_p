@@ -18,8 +18,6 @@ SRC = cmd_cd.c \
 		start_listening.c \
 		$(BOTH)add_to_cwd.c \
 		$(BOTH)check_path.c \
-		$(BOTH)double_str_size.c \
-		$(BOTH)ft_error.c \
 		$(BOTH)get_file_mmap.c \
 		$(BOTH)get_msg.c \
 		$(BOTH)get_socket.c \

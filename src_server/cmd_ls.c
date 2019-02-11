@@ -18,7 +18,7 @@ static char	*file_to_str(char *path)
 	char		*str;
 	int			fd;
 
-	fd = X(open(path, O_RDONLY));
+	fd = X(open(path, O_RDONLY, 0755));
 	X(fstat(fd, &st));
 	XV((str = ft_strnew(st.st_size)));
 	X(read(fd, str, st.st_size - 1));
@@ -55,7 +55,7 @@ char		*cmd_ls(t_env *env)
 	X((pid = fork()));
 	if (pid == 0)
 	{
-		X(fd = open(env->tmp_path, O_CREAT | O_RDWR | O_TRUNC | O_SHLOCK));
+		X(fd = open(env->tmp_path, O_CREAT | O_RDWR | O_TRUNC, 0755));
 		X(dup2(fd, STDOUT_FILENO));
 		X(close(fd));
 		exit(execv(env->ls_path, ft_strsplit(full_arg, ' ')));

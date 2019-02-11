@@ -20,10 +20,8 @@ void	connect_to_srv(int sockfd, char *address, int port)
 	ft_bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(port);
-	if (-1 == (ret = inet_pton(AF_INET, address, &servaddr.sin_addr)))
-		ft_errormsg("inet_pton failed");
+	X(ret = inet_pton(AF_INET, address, &servaddr.sin_addr));
 	if (ret == 0)
-		ft_putendl("Could not parse address defaulting to localhost");
-	if (-1 == (connect(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr))))
-		ft_errormsg("Could not connect to the host");
+		ft_putendl_fd("Could not parse address defaulting to localhost", 2);
+	X(connect(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)));
 }
