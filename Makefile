@@ -4,10 +4,14 @@ LIBFT=libft
 FT_LS=src_ft_ls
 MAKE=make
 
-all:
-	$(MAKE) -C $(LIBFT)
-	$(MAKE) -C $(FT_LS)
+
+all: client server
+	/bin/rm -f ./root/.gitkeep
+
+client: $(CLIENT)
 	$(MAKE) -C $(CLIENT)
+
+server:
 	$(MAKE) -C $(SERVER)
 
 fclean:
@@ -24,4 +28,4 @@ clean:
 
 re:	fclean all
 
-.PHONY: all clean fclean re
+.PHONY: client server all clean fclean re

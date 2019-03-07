@@ -2,6 +2,8 @@ NAME = ../client
 BOTH = ../both/
 
 LIB = ../libft/libft.a
+LIBFT = ../libft
+FT_LS = ../src_ft_ls
 
 FLAGS = -Werror -Wextra -Wall
 
@@ -24,6 +26,8 @@ SRCO = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(SRCO)
+	@make -C $(LIBFT)
+	@make -C $(FT_LS)
 	@gcc $(SRCO) $(LIB) -o $(NAME)
 
 %.o: %.c

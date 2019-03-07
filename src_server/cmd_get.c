@@ -21,7 +21,7 @@ char	*cmd_get(t_env *env)
 
 	filename = env->arg;
 	filesize = 0;
-	res = "File downloading!!!";
+	res = "File downloaded!!!";
 	if (filename == NULL && -1 == check_path(env->root, filename))
 	{
 		X(write(env->cfd, &filesize, NUM_BYTES_FILESIZE));
